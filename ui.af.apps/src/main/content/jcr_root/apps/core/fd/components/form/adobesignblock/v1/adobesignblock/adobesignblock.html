@@ -1,0 +1,46 @@
+<!--/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  ~ Copyright 2022 Adobe
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/-->
+
+<sly data-sly-use.email="com.adobe.cq.forms.core.components.models.form.TextInput"
+     data-sly-use.renderer="${'adobesignblock.js'}"
+     data-sly-use.clientlib="${'/libs/granite/sightly/templates/clientlib.html'}"
+     data-sly-use.label="${renderer.labelPath}"
+     data-sly-use.shortDescription="${renderer.shortDescriptionPath}"
+     data-sly-use.longDescription="${renderer.longDescriptionPath}"
+     data-sly-use.errorMessage="${renderer.errorMessagePath}"
+     data-sly-use.questionMark="${renderer.questionMarkPath}"></sly>
+<div data-sly-use.formstructparser="com.adobe.cq.forms.core.components.models.form.FormStructureParser"
+     class="cmp-adaptiveform-emailinput"
+     data-cmp-is="adaptiveFormEmailInput"
+     data-cmp-visible="${email.visible ? 'true' : 'false'}"
+     data-cmp-enabled="${email.enabled ? 'true' : 'false'}"
+     id="${email.id}"
+     data-cmp-adaptiveformcontainer-path="${formstructparser.formContainerPath}">
+    <div class="guideFieldNode  guideAdobeSignBlock adobesignblock1685360453583  guideTextDraw" id="guideContainer-rootPanel-adobesignblock__" style=";" data-guide-view-bind="guideContainer-rootPanel-adobesignblock__" data-guide-authoringconfigjson="{&quot;colspan&quot;:1,&quot;visible&quot;:&quot;false&quot;,&quot;name&quot;:&quot;adobesignblock1685360453583&quot;,&quot;title&quot;:&quot;Adobe Sign Block&quot;}">
+        <div class="guideFieldLabel top" style="" data-richtext="false"><label for="" id="guideContainer-rootPanel-adobesignblock___label">Adobe Sign Block</label></div>
+        <div id="guideContainer-rootPanel-adobesignblock___widget" class="guideFieldWidget adobeSignBlockText">
+            <p>Signature: &nbsp;<span data-adobesigntype="signature">{<!-- -->{sampleField_es_:signer1:signature}}</span>&nbsp;</p>
+            <p>&nbsp;</p>
+            <div class="alert_indicator guidevalid_indicator" data-guide-name="adobesignblock1685360453583" data-guide-error="" data-guide-path="/content/forms/af/sign/jcr:content/guideContainer/rootPanel/items/adobesignblock" data-guide-id="guideContainer-rootPanel-adobesignblock__">
+            </div>
+        </div>
+    </div>
+    <div data-sly-call="${questionMark.questionMark @componentId=email.id, longDescription=email.description, bemBlock='cmp-adaptiveform-emailinput'}" data-sly-unwrap></div>
+    <div data-sly-call="${shortDescription.shortDescription @componentId=email.id, shortDescriptionVisible=email.tooltipVisible, shortDescription=email.tooltip, bemBlock='cmp-adaptiveform-emailinput'}" data-sly-unwrap>
+    </div>
+    <div data-sly-call="${longDescription.longDescription @componentId=email.id, longDescription=email.description, bemBlock='cmp-adaptiveform-emailinput'}" data-sly-unwrap></div>
+    <div data-sly-call="${errorMessage.errorMessage @componentId=email.id, bemBlock='cmp-adaptiveform-emailinput'}" data-sly-unwrap></div>
+</div>
