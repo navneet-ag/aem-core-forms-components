@@ -53,8 +53,19 @@ if (typeof window.RecaptchaWidget === 'undefined') {
                 recaptchaConfigData.required = false;
             }
 
+            if (document.getElementsByClassName("g-recaptcha-invisible").length > 0) {
+                this.#model.subscribe((action)=>{
+                    if (action.type === 'invalid') {
+                        console.log('invalid recaptcha');
+                        grecaptcha.execute();
+                    }
+                }, 'invalid');
+            }
             var successCallback = function(response) {
                 self.setCaptchaModel(response);
+                if (recaptchaConfigData.properties["fd:captcha"].config.size == "invisible") {
+                    guideBridge.getFormModel().dispatch({type: 'submit'});
+                }
             };
 
             var expiredCallback = function() {
