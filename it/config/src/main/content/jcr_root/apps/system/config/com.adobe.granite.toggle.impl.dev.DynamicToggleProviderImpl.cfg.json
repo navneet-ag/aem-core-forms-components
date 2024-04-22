@@ -8,6 +8,7 @@
     "FT_FORMS-9244",
     "FT_FORMS-13193",
     "FT_FORMS-11541",
+<<<<<<< HEAD
     "FT_FORMS-11269",
     "FT_FORMS-11714",
     "FT_FORMS-11756",
@@ -15,5 +16,8 @@
     "FT_FORMS-12570",
     "FT_FORMS-12052",
     "FT_FORMS-13209"
+=======
+    "FT-FORMS-12407"
+>>>>>>> eba748c23 (Adding FT for running Tests)
   ]
 }
