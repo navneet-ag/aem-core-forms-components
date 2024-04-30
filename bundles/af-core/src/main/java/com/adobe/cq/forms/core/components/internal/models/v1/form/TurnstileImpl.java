@@ -22,7 +22,6 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.adobe.aemds.guide.model.TurnstileConfiguration;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
@@ -35,7 +34,7 @@ import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.adobe.aemds.guide.model.HCaptchaConfiguration;
+import com.adobe.aemds.guide.model.TurnstileConfiguration;
 import com.adobe.aemds.guide.service.CloudConfigurationProvider;
 import com.adobe.aemds.guide.service.GuideException;
 import com.adobe.cq.export.json.ComponentExporter;
@@ -46,10 +45,10 @@ import com.adobe.cq.forms.core.components.util.AbstractCaptchaImpl;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Model(
-    adaptables = {SlingHttpServletRequest.class, Resource.class},
+    adaptables = { SlingHttpServletRequest.class, Resource.class },
     adapters = { Turnstile.class,
         ComponentExporter.class },
-    resourceType = { FormConstants.RT_FD_FORM_HCAPTCHA_V1 })
+    resourceType = { FormConstants.RT_FD_FORM_TURNSTILE_V1 })
 @Exporter(name = ExporterConstants.SLING_MODEL_EXPORTER_NAME, extensions = ExporterConstants.SLING_MODEL_EXTENSION)
 public class TurnstileImpl extends AbstractCaptchaImpl implements Turnstile {
     private static final Logger LOGGER = LoggerFactory.getLogger(TurnstileImpl.class);
@@ -81,7 +80,7 @@ public class TurnstileImpl extends AbstractCaptchaImpl implements Turnstile {
     private static final String URI = "uri";
     private static final String SIZE = "size";
     private static final String THEME = "theme";
-    private static final String TYPE = "type";
+    private static final String WIDGET_TYPE = "widgetType";
 
     @Override
     public String getCloudServicePath() {
@@ -90,24 +89,25 @@ public class TurnstileImpl extends AbstractCaptchaImpl implements Turnstile {
 
     @Override
     public String getProvider() {
-        return "hcaptcha";
+        return "turnstile";
     }
 
     @Override
     public Map<String, Object> getCaptchaProperties() throws GuideException {
 
         Map<String, Object> customCaptchaProperties = new LinkedHashMap<>();
-        String siteKey = null, uri = null;
+        String siteKey = null, uri = null, widgetType = null;
         resource = resourceResolver.getResource(this.getPath());
         if (cloudConfigurationProvider == null) {
             LOGGER.info("[AF] [Captcha] [TURNSTILE] Error while fetching cloud configuration, upgrade to latest release to use hCaptcha.");
         }
         try {
             if (resource != null && cloudConfigurationProvider != null) {
-                 turnstileConfiguration = cloudConfigurationProvider.getTurnstileCloudConfiguration(resource);
+                turnstileConfiguration = cloudConfigurationProvider.getTurnstileCloudConfiguration(resource);
                 if (turnstileConfiguration != null) {
                     siteKey = turnstileConfiguration.getSiteKey();
                     uri = turnstileConfiguration.getClientSideJsUrl();
+                    widgetType = turnstileConfiguration.getWidgetType();
                 }
             }
         } catch (GuideException e) {
@@ -117,7 +117,7 @@ public class TurnstileImpl extends AbstractCaptchaImpl implements Turnstile {
         customCaptchaProperties.put(URI, uri);
         customCaptchaProperties.put(SIZE, this.size);
         customCaptchaProperties.put(THEME, "light");
-
+        customCaptchaProperties.put(WIDGET_TYPE, widgetType);
         return customCaptchaProperties;
 
     }

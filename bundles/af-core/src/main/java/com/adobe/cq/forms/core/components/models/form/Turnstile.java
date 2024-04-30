@@ -22,7 +22,7 @@ import org.osgi.annotation.versioning.ConsumerType;
  * Defines the form {@code Turnstile} Sling Model used for the {@code /apps/core/fd/components/form/turnstile/v1/turnstile}
  * component.
  *
- * @since com.adobe.cq.forms.core.components.models.form 5.4.0
+ * @since com.adobe.cq.forms.core.components.models.form 5.5.0
  */
 @ConsumerType
-public interface Turnstile {}
+public interface Turnstile extends Captcha {}
