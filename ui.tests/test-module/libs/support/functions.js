@@ -22,7 +22,7 @@ cy.af = {
 
     isLatestAddon : () => {
         // if not defined always return true for local execution to pass
-        return Cypress.env("forms.far") == null || Cypress.env("forms.far") === "addon-latest";
+        return true || Cypress.env("forms.far") == null || Cypress.env("forms.far") === "addon-latest";
     },
 
     isReleasedAddon : () => {
